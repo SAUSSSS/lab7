@@ -40,6 +40,7 @@ int main(){
     double yy[N] = {0};
     double ay[N] = {0};
     double ayy[N] = {0};
+    double xx[N] = {0};
     const double h = 0.01; //step
     double x = 0.0;
     int i = 0;
@@ -52,6 +53,7 @@ int main(){
         ay[i] = a_f(x);
         ayy[i] = aa_f(x);
         x += h;
+        xx[i] = x;
         i++;
     }
     std::cout << i << std::endl;
@@ -63,8 +65,8 @@ int main(){
 
 
     for(int j = 0; j < i; j++){
-        y1 << y[j] << " " << ay[j] << std::endl;
-        y2 << yy[j] << " " << ayy[j] << std::endl;
+        y1 << y[j] << " " << ay[j] << " " << xx[j] << std::endl;
+        y2 << yy[j] << " " << ayy[j] << " " << xx[j] << std::endl;
        
 
     }
