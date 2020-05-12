@@ -1,7 +1,7 @@
 #include<iostream>
 #include<cmath>
 #include<fstream>
- 
+ double y_2(const double &x,const double &y);
 
 
 
@@ -19,7 +19,8 @@ double aa_f(const double &t){
 
 
 double y_1(const double &x,const double &y){
-    return -(x)/exp(x) + x;   // => y'(0)/1! = 0
+    //std::cout << y << std::endl;
+    return -(x)*exp(-x);   // => y'(0)/1! = 0
 }
 
 double y_2(const double &x,const double &y){
@@ -30,7 +31,7 @@ double y_2(const double &x,const double &y){
 
 
 int main(){
-    int N = 10000;
+    int N = 1000;
     double y[N] = {0};
     double yy[N] = {0};
     double ay[N] = {0};
@@ -41,17 +42,20 @@ int main(){
     int i = 0;
     y[i] = 1;
     yy[i] = 0;
+    double p = y[i];
 
     while(x <= 2){
-        y[i+1] = 1 - y_1(x,y[i])*x + (pow(x,2)*(y_2(x,y[i])))/2.;
+        y[i+1] = 1 + x*(x*y_1(x,p)) + (pow(x,2)*(y_2(x,p)))/2.;
+        p = y[i+1];
         yy[i+1] = -x  + (pow(x,2)*(y_2(x,yy[i])))/2.;
         ay[i] = a_f(x);
         ayy[i] = aa_f(x);
         x += h;
         xx[i] = x;
         i++;
+        std::cout << y[i-1] << " " << ay[i-1]<< std::endl;
     }
-    std::cout << i << std::endl;
+    std::cout << y << std::endl;
     std::ofstream y1,y2;
     y1.open("y1.dat");
     y2.open("y2.dat");
