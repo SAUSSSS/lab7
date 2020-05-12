@@ -41,3 +41,5 @@ ax1.legend()
 ax2.plot(solution2[:,1], label = 'y(x)')
 ax2.plot(analytical2(x), label = 'y(x) Analytical')
 ax2.legend()
+
+plt.show()
