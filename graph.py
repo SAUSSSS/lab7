@@ -15,14 +15,19 @@ ax3 = fig3.add_subplot()
 ax1.plot(data1[:,2],data1[:,0], label = 'y(x) Tylor')
 ax1.plot(data1[:,2],data1[:,1], label = 'y(x) Analytical')
 ax1.legend()
+ax1.grid()
+
 
 ax2.plot(data2[:,2],data2[:,0], label = 'y(streak)(x) Tylor')
 ax2.plot(data2[:,2],data2[:,1], label = 'y(streak)(x) Analytical')
 ax2.legend()
+ax2.grid()
 
 ax3.plot(data1[:,0],data2[:,0],label = 'y(x),y(streak)(x) phase trajectory')
 ax3.legend()
+ax3.grid()
 
+plt.show()
 
 
 
