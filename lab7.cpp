@@ -18,12 +18,12 @@ double aa_f(const double &t){
 }
 
 
-double y_1(){
-    return 0;   // => y'(0)/1! = 0
+double y_1(const double &x,const double &y){
+    return -(x)/exp(x) + x;   // => y'(0)/1! = 0
 }
 
-double y_2(const double &x,const double &y0){
-    return x*exp(-x) - y0;   // => y"(0)*x^2/2! =  - x^2/2!
+double y_2(const double &x,const double &y){
+    return x*exp(-x) - y;   // => y"(0)*x^2/2! =  - x^2/2!
 }
 
 
@@ -43,8 +43,8 @@ int main(){
     yy[i] = 0;
 
     while(x <= 2){
-        y[i+1] = 1 -  y_1()*x + (pow(x,2)*(y_2(x,y[i])))/2;
-        yy[i+1] = -x +  y_1()*x + (pow(x,2)*(y_2(x,yy[i])))/2;
+        y[i+1] = 1 - y_1(x,y[i])*x + (pow(x,2)*(y_2(x,y[i])))/2.;
+        yy[i+1] = -x  + (pow(x,2)*(y_2(x,yy[i])))/2.;
         ay[i] = a_f(x);
         ayy[i] = aa_f(x);
         x += h;
@@ -70,4 +70,4 @@ int main(){
     
 
     return 0;
-}
+} 
