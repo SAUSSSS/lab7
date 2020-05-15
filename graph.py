@@ -1,8 +1,19 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-data1 = np.loadtxt("y1.dat")
-data2 = np.loadtxt("y2.dat")
+data1 = np.loadtxt("y2.dat")
+
+
+def analytical1(x):
+    return np.cos(x)/2 + np.exp(-x)*(x/2 + 1/2)
+
+def analytical2(t):
+    return -(np.exp(t) * np.sin(t) + t) / (2 * np.exp(t))
+
+x = np.arange(0.0, 2.0, 0.01) 
+
+
+
 
 fig1 = plt.figure()
 fig2 = plt.figure()
@@ -12,22 +23,22 @@ ax1 = fig1.add_subplot()
 ax2 = fig2.add_subplot()
 ax3 = fig3.add_subplot()
 
-ax1.plot(data1[:,2],data1[:,0], label = 'y(x) Tylor')
-ax1.plot(data1[:,2],data1[:,1], label = 'y(x) Analytical')
+
+ax1.plot(x,data1[:,0], label = 'y(x)')
+ax1.plot(x,data1[:,1], label = 'y*(x)')
 ax1.legend()
-ax1.grid()
 
 
-ax2.plot(data2[:,2],data2[:,0], label = 'y(streak)(x) Tylor')
-ax2.plot(data2[:,2],data2[:,1], label = 'y(streak)(x) Analytical')
+ax2.plot(data1[:,0],data1[:,1],color = 'red',lw = 2, label = 'y*(y) phase trajectory')
 ax2.legend()
-ax2.grid()
 
-ax3.plot(data1[:,0],data2[:,0],label = 'y(x),y(streak)(x) phase trajectory')
+
+ax3=plt.subplot('121')
+ax3.plot(x,data1[:,1]-analytical1(x),label = ' ')
+ax3=plt.subplot('122')
+ax3.plot(x,data1[:,0]-analytical2(x),label = ' ')
 ax3.legend()
-ax3.grid()
 
-plt.show()
 
 
 
