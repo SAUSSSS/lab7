@@ -4,11 +4,13 @@ import scipy
 from numpy import sqrt, exp
 import matplotlib.pyplot as plt
 
+
 def analytical1(x):
     return np.cos(x)/2 + np.exp(-x)*(x/2 + 1/2)
 
 def analytical2(t):
     return -(np.exp(t) * np.sin(t) + t) / (2 * np.exp(t))
+
 
 def model(t,z):
 	# print(z)
