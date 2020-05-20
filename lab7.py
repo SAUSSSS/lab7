@@ -1,34 +1,50 @@
-from scipy.integrate import odeint  
-import numpy as np                   
-import matplotlib.pyplot as plt      
- 
-def f(u, x):
-    y = u[0]
-    z = u[1]
-    return [z,(1-x)*np.exp(-x) - y]
+import numpy as np
+from scipy.integrate import odeint,solve_ivp
+import scipy
+from numpy import sqrt, exp
+import matplotlib.pyplot as plt
 
-def ff(u, x):
-    y = u[0]
-    z = u[1]
-    return [z,x*np.exp(-x) - y]
+def analytical1(x):
+    return np.cos(x)/2 + np.exp(-x)*(x/2 + 1/2)
+
+def analytical2(t):
+    return -(np.exp(t) * np.sin(t) + t) / (2 * np.exp(t))
+
+def model(t,z):
+	# print(z)
+	y1=z[0]
+	y2=z[1]
+	return [y2,t*np.exp(-t) - y1]
+
+# initial condition
+z0 = np.array([1,0])
+
+solve = solve_ivp(model,[0, 2],z0,method='LSODA',min_step=0.01,max_step=0.01)
+
+x=solve.t
+z=solve.y
+# print(z)
+
+Y1=z[0]
+Y2=z[1]
+
+plt.subplot(221)
+plt.plot(x,Y1)
+# plt.show()
+plt.subplot(222)
+plt.plot(x,Y2)
+# plt.show()
+plt.subplot(223)
+plt.plot(Y1,Y2)
+plt.show()  
 
 
-
-x = np.arange(0.0, 2.0, 0.01)    
-y0 = [1.0, 0.0]
-y1 = [1.0, 0.0]     
- 
-solution1 = odeint(f, y0, x)
-solution2 = odeint(ff, y1, x)
- 
-fig1 = plt.figure()
-ax1 = fig1.add_subplot()
 
 fig2 = plt.figure()
 ax2 = fig2.add_subplot()
 
-ax1.plot(solution1[:,1], label = 'y(x)')
-ax1.legend()
-
-ax2.plot(solution2[:,1], label = 'y*(x)')
+ax2=plt.subplot('122')
+ax2.plot(x,Y1-analytical1(x), label = 'y(x)')
+ax2=plt.subplot('121')
+ax2.plot(x,Y2-analytical2(x), label = 'y*(x)')
 ax2.legend()
